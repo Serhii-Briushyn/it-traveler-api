@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "lib": ["ES2022"],
+    "allowJs": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "controllers/*": ["controllers/*"],
+      "routes/*": ["routes/*"],
+      "models/*": ["models/*"],
+      "middlewares/*": ["middlewares/*"],
+      "utils/*": ["utils/*"]
+    },
+    "outDir": "./dist",
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

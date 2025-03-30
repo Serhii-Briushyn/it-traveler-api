@@ -1,0 +1,54 @@
+{
+  "name": "it-traveler-api",
+  "version": "1.0.0",
+  "description": "Backend API for user registration and managing personal favorite places with map integration.",
+  "keywords": [
+    "nodejs",
+    "express",
+    "api",
+    "authentication",
+    "users",
+    "map",
+    "favorites",
+    "places",
+    "mongodb",
+    "backend"
+  ],
+  "author": "Serhii Briushyn <serhii.briushyn@icloud.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o ./docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Serhii-Briushyn/it-traveler-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Serhii-Briushyn/it-traveler-api/issues"
+  },
+  "homepage": "https://github.com/Serhii-Briushyn/it-traveler-api#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@redocly/cli": "^1.34.1",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9",
+    "typescript-eslint": "^8.28.0"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "reflect-metadata": "^0.2.2",
+    "routing-controllers": "^0.11.2"
+  }
+}
