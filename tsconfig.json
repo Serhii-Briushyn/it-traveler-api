@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ES2022",
+    "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["ES2022"],
     "allowJs": false,
@@ -15,10 +15,12 @@
     "sourceMap": true,
     "baseUrl": "./src",
     "paths": {
-      "controllers/*": ["controllers/*"],
-      "routes/*": ["routes/*"],
-      "models/*": ["models/*"],
+      "app/*": ["app/*"],
+      "infra/*": ["infra/*"],
       "middlewares/*": ["middlewares/*"],
+      "models/*": ["models/*"],
+      "shared/*": ["shared/*"],
+      "types/*": ["types/*"],
       "utils/*": ["utils/*"]
     },
     "outDir": "./dist",

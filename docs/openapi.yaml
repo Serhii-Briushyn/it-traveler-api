@@ -1,0 +1,21 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: IT Traveler API
+  description: Comprehensive API documentation for managing resources, including user authentication, contact management, and other related operations.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: Auth
+    description: Endpoints for user authentication, registration, and token management.
+
+servers:
+
+  - url: http://127.0.0.1:3000
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
