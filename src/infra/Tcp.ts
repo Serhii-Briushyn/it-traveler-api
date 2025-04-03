@@ -8,6 +8,7 @@ import {
   authorizationChecker,
   currentUserChecker,
 } from "app/auth/Auth.checkers";
+import { jsonSyntaxErrorHandler } from "middlewares/jsonSyntaxErrorHandler";
 
 export class Tcp implements IService {
   private static instance: Tcp;
@@ -25,6 +26,8 @@ export class Tcp implements IService {
 
   async init(): Promise<boolean> {
     this.server.use(express.json());
+
+    this.server.use(jsonSyntaxErrorHandler);
 
     useExpressServer(this.server, {
       routePrefix: this.routePrefix,
