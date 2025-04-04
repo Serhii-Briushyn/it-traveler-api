@@ -1,11 +1,11 @@
 import { Schema, model, Types, Document } from "mongoose";
-import { IMarker } from "../types/marker.types";
+import { IGeoPoint, IMarker } from "../types/marker.types";
 
 export interface MarkerDocument extends Document {
   title: string;
   description?: string;
-  img?: string;
-  coordinates: [number, number];
+  imageUrl?: string;
+  geometry: IGeoPoint;
   userId: Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
@@ -14,15 +14,33 @@ export interface MarkerDocument extends Document {
 
 const markerSchema = new Schema<MarkerDocument>(
   {
-    title: { type: String, required: true },
-    description: { type: String },
-    img: { type: String },
-    coordinates: {
-      type: [Number],
+    title: {
+      type: String,
       required: true,
-      validate: {
-        validator: (val: number[]) => Array.isArray(val) && val.length === 2,
-        message: "Coordinates must contain exactly [lat, lng]",
+    },
+    description: {
+      type: String,
+    },
+    imageUrl: {
+      type: String,
+    },
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+        default: "Point",
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+        validate: {
+          validator: (val: number[]) =>
+            Array.isArray(val) &&
+            val.length === 2 &&
+            val.every((n) => typeof n === "number"),
+          message: "Coordinates must be [longitude, latitude]",
+        },
       },
     },
     userId: {
@@ -34,6 +52,7 @@ const markerSchema = new Schema<MarkerDocument>(
   {
     timestamps: true,
     versionKey: false,
+    strict: true,
   },
 );
 

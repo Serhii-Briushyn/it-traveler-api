@@ -1,13 +1,15 @@
-export interface ICreateMarkerDto {
+import { IGeoPoint } from "types/marker.types";
+
+export interface IMarkerCreate {
   title: string;
   description?: string;
-  img?: string;
-  coordinates: [number, number];
+  imageUrl?: string;
+  geometry: IGeoPoint;
 }
 
-export interface IUpdateMarkerDto {
+export interface IMarkerUpdate {
   title?: string;
   description?: string;
-  img?: string;
-  coordinates?: [number, number];
+  imageUrl?: string;
+  geometry?: IGeoPoint;
 }

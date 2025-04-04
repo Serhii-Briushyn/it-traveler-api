@@ -3,8 +3,9 @@ import {
   ExpressErrorMiddlewareInterface,
 } from "routing-controllers";
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "shared/ApiError";
+import { ApiError } from "shared/api-error";
 import { HttpError } from "routing-controllers";
+import { MulterError } from "multer";
 
 @Middleware({ type: "after" })
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {
@@ -29,6 +30,17 @@ export class ErrorHandler implements ExpressErrorMiddlewareInterface {
         success: false,
         status: error.httpCode,
         message: error.message,
+      });
+      return;
+    }
+
+    if (error instanceof MulterError) {
+      res.status(400).json({
+        success: false,
+        status: 400,
+        message: "Invalid file field",
+        code: error.code,
+        field: `Field ${error.field} should not exist `,
       });
       return;
     }

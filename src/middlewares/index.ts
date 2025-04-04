@@ -1,6 +1,6 @@
-import { HTTPRequestLogger } from "./HTTPRequestLogger";
-import { HTTPResponseLogger } from "./HTTPResponseLogger";
-import { ErrorHandler } from "./ErrorHandler";
+import { HTTPRequestLogger } from "./http-request-logger";
+import { HTTPResponseLogger } from "./http-response-logger";
+import { ErrorHandler } from "./error-handler";
 
 type Middleware = typeof HTTPRequestLogger | typeof HTTPResponseLogger;
 

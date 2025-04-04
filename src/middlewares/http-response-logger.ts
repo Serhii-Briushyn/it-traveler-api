@@ -1,5 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import { Middleware, type ExpressMiddlewareInterface } from "routing-controllers";
+import {
+  Middleware,
+  type ExpressMiddlewareInterface,
+} from "routing-controllers";
 
 @Middleware({ type: "after" })
 export class HTTPResponseLogger implements ExpressMiddlewareInterface {

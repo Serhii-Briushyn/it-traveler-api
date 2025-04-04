@@ -8,11 +8,11 @@ import {
 } from "routing-controllers";
 import { validate } from "class-validator";
 
-import { AuthService } from "./Auth.service";
-import { LoginDto, RegisterDto } from "./Auth.dto";
-import { ApiResponse } from "shared/ApiResponse";
-import { ApiError } from "shared/ApiError";
-import type { IAuthResponse } from "./Auth.types";
+import { AuthService } from "./auth.service";
+import { LoginDto, RegisterDto } from "./auth.dto";
+import { ApiResponse } from "shared/api-response";
+import { ApiError } from "shared/api-error";
+import type { IAuthResponse } from "./auth.types";
 import { IUser } from "types/user.types";
 
 @JsonController("/auth")

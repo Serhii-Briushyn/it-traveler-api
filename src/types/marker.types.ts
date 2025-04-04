@@ -1,9 +1,14 @@
+export interface IGeoPoint {
+  type: "Point";
+  coordinates: [number, number];
+}
+
 export interface IMarker {
   id: string;
   title: string;
   description?: string;
-  img?: string;
-  coordinates: [number, number];
+  imageUrl?: string;
+  geometry: IGeoPoint;
   userId: string;
   createdAt?: Date;
   updatedAt?: Date;

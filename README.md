@@ -1,109 +1,130 @@
-# Project Architecture Overview
+# 🌍 It-Traveler API
 
-## 📂 Project Structure (src/)
+Backend API for the **It-Traveler** project — a location-based marker platform allowing users to create and manage geospatial markers with image upload support.
 
-```bash
+---
+
+## 🚀 Features
+
+- 🌐 REST API powered by [Routing-Controllers](https://github.com/typestack/routing-controllers)
+- 📦 File uploads with Cloudinary integration (via `multer`)
+- 🧭 GeoJSON marker support with MongoDB (`geometry: Point`)
+- 🔐 Secure authentication using JWT (via access/refresh sessions)
+- 🧾 Full request validation with `class-validator` + `class-transformer`
+- 📁 Clean architecture with feature-based modularity
+- 🪝 Built-in request/response logging and error handling
+
+---
+
+## 📁 Project Structure
+
+```
 src/
-├── app/                # Application logic (feature-based)
-│   ├── auth/           # Authentication module
-│   │   ├── Auth.checkers.ts
-│   │   ├── Auth.controller.ts
-│   │   ├── Auth.dto.ts
-│   │   ├── Auth.errors.ts
-│   │   ├── Auth.service.ts
-│   │   ├── Auth.types.ts
-│   │   └── index.ts
-│   ├── markers/         # Business logic for "markers"
-│   │   ├── Marker.controller.ts
-│   │   ├── Marker.dto.ts
-│   │   ├── Marker.service.ts
-│   │   └── Marker.types.ts
-│   └── index.ts      # Aggregates feature controllers
-│
-├── domain/             # Entry point to app domain (aggregates controllers)
-│   └── index.ts
-│
-├── helpers/            # Helper utilities
-│   ├── ApiError.ts
-│   └── ApiResponse.ts
-│
-├── infra/              # Infrastructure (Express app, DB init, etc)
-│   ├── App.ts
-│   ├── Tcp.ts
-│   └── initMongoConnection.ts
-│
-├── middlewares/        # Express middlewares
-│   ├── HTTPRequestLogger.ts
-│   ├── HTTPResponseLogger.ts
-│   └── index.ts
-│
-├── models/             # Mongoose schemas (database models)
-│   ├── User/
-│   │   └── User.model.ts
-│   ├── Session/
-│   │   └── Session.model.ts
-│   ├── Marker/
-│   │   └── Marker.model.ts
-│   └── index.ts
-│
-├── types/              # Global TypeScript types
-│   ├── services.ts
-│   └── user.types.ts
-│
-├── utils/              # Utility functions (env, tokens, etc)
-│   ├── env.ts
-│   └── main.ts
+├── app/                # Controllers, DTOs, services by feature (auth, markers)
+│   ├── auth/
+│   └── markers/
+├── domain/             # Aggregated controllers for Routing-Controllers
+├── infra/              # Infrastructure layer (app init, security, DB)
+├── middlewares/        # Custom middlewares (logger, error handlers, multer)
+├── models/             # Mongoose models
+├── shared/             # Shared helpers like ApiResponse, ApiError
+├── types/              # Global types
+├── utils/              # Reusable utility functions (cloudinary, etc)
 ```
 
 ---
 
-## 🌎 Architectural Principles
+## ⚙️ Getting Started
 
-- **Feature-based structure**: logic по модулям (`auth`, `places`, и т.д.)
-- **Separation of Concerns**:
-  - `app/` — бизнес-логика
-  - `infra/` — инфраструктура
-  - `models/` — доступ к БД (Mongoose)
-  - `helpers/`, `utils/`, `types/` — вспомогательные слои
-- **Routing-controllers**: удобный declarative routing
-- **Middleware-driven logging**
-
----
-
-## 💡 Основные паттерны
-
-- `Service Layer` — логика в `*.service.ts`
-- `DTO` + `class-validator` — валидация входных данных
-- `Error Handling` — через `ApiError` + централизованную обработку
-- `Session Auth` — через JWT + сессии в MongoDB
-
----
-
-## 🏠 Пример запроса (Auth Flow)
-
-```ts
-POST /api/auth/login
--> AuthService.login()
--> Validates & checks user
--> Creates new session (MongoDB)
--> Returns accessToken + refreshToken
-```
-
-```ts
-POST /api/auth/logout
--> @Authorized() + @CurrentUser()
--> AuthService.logout(user.id)
--> Deletes session from DB
-```
-
----
-
-## 🚀 Команды запуска
+### 1. Clone the repository
 
 ```bash
-# Запуск проекта
-npm run dev
-
-# Production build
-npm run build
+git clone https://github.com/Serhii-Briushyn/it-traveler-api.git
+cd it-traveler-api
 ```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+
+Create `.env` from `.env.example` and set:
+
+```
+PORT=3000
+MONGODB_USER=your_db_user
+MONGODB_PASSWORD=your_db_pass
+MONGODB_URL=cluster.mongodb.net
+MONGODB_DB=it-traveler
+JWT_SECRET=your_jwt_access_secret
+JWT_REFRESH_SECRET=your_jwt_refresh_secret
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### 4. Run the app
+
+```bash
+npm run dev
+```
+
+---
+
+## 🛠 Technologies Used
+
+- **Node.js**, **TypeScript**
+- **Express.js**, **Routing-Controllers**
+- **MongoDB** with **Mongoose**
+- **JWT authentication** with **jsonwebtoken**, **bcryptjs**
+- **Multer** + **Cloudinary** for image upload
+- **class-validator** + **class-transformer** for request validation
+- **dotenv** for env config
+- **ts-node**, **tsconfig-paths**, **nodemon** for development
+- **Custom ApiError / ApiResponse** system for consistent error handling
+- **depcheck**, **eslint**, **typescript-eslint** for code quality and maintenance
+
+---
+
+## ✅ API Overview
+
+### 🔐 Auth
+
+| Method | Endpoint             | Description                   |
+| ------ | -------------------- | ----------------------------- |
+| `POST` | `/api/auth/register` | Register new user             |
+| `POST` | `/api/auth/login`    | Login user and create session |
+| `POST` | `/api/auth/refresh`  | Refresh access token          |
+| `POST` | `/api/auth/logout`   | Logout and delete session     |
+
+### 📍 Markers
+
+| Method   | Endpoint           | Description              |
+| -------- | ------------------ | ------------------------ |
+| `GET`    | `/api/markers`     | Get all user markers     |
+| `POST`   | `/api/markers`     | Create new marker (file) |
+| `PUT`    | `/api/markers/:id` | Update existing marker   |
+| `DELETE` | `/api/markers/:id` | Delete marker by ID      |
+
+> Full OpenAPI/Swagger spec coming soon...
+
+---
+
+## 🧪 Testing
+
+✅ All endpoints tested manually using Postman.
+
+---
+
+## 🧑‍💻 Author
+
+Created with ❤️ by **Serhii Briushyn**
+
+---
+
+## 📜 License
+
+MIT
