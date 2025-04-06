@@ -7,6 +7,7 @@ import { middlewares } from "../middlewares/index";
 import { authorizationChecker } from "./security/authorization-checker";
 import { currentUserChecker } from "./security/current-user-checker";
 import { env } from "../utils/env";
+import { swaggerDocs } from "../middlewares/swagger-docs";
 
 export class Tcp implements IService {
   private static instance: Tcp;
@@ -24,6 +25,7 @@ export class Tcp implements IService {
 
   async init(): Promise<boolean> {
     this.server.use(express.json());
+    this.server.use("/api-docs", swaggerDocs());
 
     useExpressServer(this.server, {
       routePrefix: this.routePrefix,

@@ -110,7 +110,7 @@ npm run dev
 | `PUT`    | `/api/markers/:id` | Update existing marker   |
 | `DELETE` | `/api/markers/:id` | Delete marker by ID      |
 
-> 🧾 [View Full Swagger Spec](https://your-domain.com/docs/swagger)
+> 🧾 [View Full Swagger Spec](https://it-traveler-api.onrender.com/api-docs)
 
 ---
 
