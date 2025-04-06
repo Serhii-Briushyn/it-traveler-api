@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { MarkerCollection, MarkerDocument } from "../../models/marker.model";
+import { MarkerCollection, MarkerDocument } from "../../models/marker.model1";
 import { IMarker } from "../../types/marker.types";
 import { ApiError } from "../../shared/api-error";
-import { IMarkerCreate, IMarkerUpdate } from "./marker.types";
+import { IMarkerCreate, IMarkerUpdate } from "./marker.types1";
 
 export class MarkerService {
   // ─────────────────── Get All ───────────────────

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { env } from "../../utils/env";
-import { UsersCollection } from "../../models/user.model";
-import { SessionsCollection } from "../../models/session.model";
+import { UsersCollection } from "../../models/user.model1";
+import { SessionsCollection } from "../../models/session.model1";
 import { ApiError } from "../../shared/api-error";
 
 export const verifyToken = async (token: string) => {

@@ -14,9 +14,9 @@ import {
 import { plainToInstance } from "class-transformer";
 import { Request } from "express";
 import { validate } from "class-validator";
-import { MarkerService } from "./marker.service";
+import { MarkerService } from "./marker.service1";
 import { mapCreateMarkerDto, mapUpdateMarkerDto } from "./marker.mapper";
-import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto";
+import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto1";
 import { ApiResponse } from "../../shared/api-response";
 import { IUser } from "../../types/user.types";
 import { IMarker } from "../../types/marker.types";

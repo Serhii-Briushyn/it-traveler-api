@@ -8,9 +8,9 @@ import {
   Get,
 } from "routing-controllers";
 import { validate } from "class-validator";
-import { AuthService } from "./auth.service";
-import type { IAuthResponse } from "./auth.types";
-import { LoginDto, RegisterDto } from "./auth.dto";
+import { AuthService } from "./auth.service1";
+import type { IAuthResponse } from "./auth.types1";
+import { LoginDto, RegisterDto } from "./auth.dto1";
 import { ApiResponse } from "../../shared/api-response";
 import { IUser } from "../../types/user.types";
 import { ApiError } from "../../shared/api-error";
