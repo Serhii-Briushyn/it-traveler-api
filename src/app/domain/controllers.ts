@@ -1,5 +1,5 @@
-import { AuthController } from "app/auth";
-import { MarkerController } from "app/markers";
+import { AuthController } from "../../app/auth";
+import { MarkerController } from "../../app/markers";
 
 type Controller = typeof AuthController | typeof MarkerController;
 

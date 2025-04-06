@@ -1,6 +1,6 @@
 import { Action } from "routing-controllers";
-import { ApiError } from "shared/api-error";
 import { verifyToken } from "./verify-token";
+import { ApiError } from "../../shared/api-error";
 
 export const currentUserChecker = async (action: Action) => {
   const authHeader = action.request.headers["authorization"];

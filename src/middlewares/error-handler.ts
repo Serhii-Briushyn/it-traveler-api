@@ -3,8 +3,8 @@ import {
   ExpressErrorMiddlewareInterface,
 } from "routing-controllers";
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "shared/api-error";
 import { MulterError } from "multer";
+import { ApiError } from "../shared/api-error";
 
 @Middleware({ type: "after" })
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {

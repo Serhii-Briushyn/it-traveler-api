@@ -7,14 +7,13 @@ import {
   OnUndefined,
   Get,
 } from "routing-controllers";
-
-import { AuthService } from "./auth.service";
-import { LoginDto, RegisterDto } from "./auth.dto";
-import { ApiResponse } from "shared/api-response";
-import type { IAuthResponse } from "./auth.types";
-import { IUser } from "types/user.types";
-import { ApiError } from "shared/api-error";
 import { validate } from "class-validator";
+import { AuthService } from "./auth.service";
+import type { IAuthResponse } from "./auth.types";
+import { LoginDto, RegisterDto } from "./auth.dto";
+import { ApiResponse } from "../../shared/api-response";
+import { IUser } from "../../types/user.types";
+import { ApiError } from "../../shared/api-error";
 
 @JsonController("/auth")
 export class AuthController {

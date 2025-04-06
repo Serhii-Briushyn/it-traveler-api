@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { env } from "utils/env";
-import { UsersCollection } from "models/user.model";
-import { SessionsCollection } from "models/session.model";
-import { ApiError } from "shared/api-error";
+import { env } from "../../utils/env";
+import { UsersCollection } from "../../models/user.model";
+import { SessionsCollection } from "../../models/session.model";
+import { ApiError } from "../../shared/api-error";
 
 export const verifyToken = async (token: string) => {
   const decoded = jwt.verify(token, env("JWT_SECRET")) as { id: string };

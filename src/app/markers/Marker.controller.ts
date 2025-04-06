@@ -11,18 +11,18 @@ import {
   UseBefore,
   Req,
 } from "routing-controllers";
-import { MarkerService } from "./marker.service";
-import { ApiResponse } from "shared/api-response";
-import { IUser } from "types/user.types";
-import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto";
-import { IMarker } from "types/marker.types";
-import { validate } from "class-validator";
-import { ApiError } from "shared/api-error";
-import { saveFileToCloudinary } from "utils/cloudinary";
 import { plainToInstance } from "class-transformer";
-import { imageUploadMiddleware } from "middlewares/image-upload";
 import { Request } from "express";
+import { validate } from "class-validator";
+import { MarkerService } from "./marker.service";
 import { mapCreateMarkerDto, mapUpdateMarkerDto } from "./marker.mapper";
+import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto";
+import { ApiResponse } from "../../shared/api-response";
+import { IUser } from "../../types/user.types";
+import { IMarker } from "../../types/marker.types";
+import { ApiError } from "../../shared/api-error";
+import { saveFileToCloudinary } from "../../utils/cloudinary";
+import { imageUploadMiddleware } from "../../middlewares/image-upload";
 
 @JsonController("/markers")
 export class MarkerController {

@@ -1,4 +1,4 @@
-import { IGeoPoint } from "types/marker.types";
+import { IGeoPoint } from "../../types/marker.types";
 
 export interface IMarkerCreate {
   title: string;

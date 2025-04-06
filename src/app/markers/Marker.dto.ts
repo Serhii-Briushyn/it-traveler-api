@@ -9,7 +9,7 @@ import {
   IsNumber,
   IsUrl,
 } from "class-validator";
-import { transformCoordinates } from "utils/transform-coordinates";
+import { transformCoordinates } from "../../utils/transform-coordinates";
 
 export class CreateMarkerDto {
   @Expose()

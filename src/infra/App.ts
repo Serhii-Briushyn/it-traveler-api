@@ -1,7 +1,7 @@
 import { initMongoConnection } from "./init-mongo-connection";
 import { Tcp } from "./tcp";
 
-import { IService } from "types/service.types";
+import { IService } from "../types/service.types";
 
 export class App implements IService {
   private static instance: App;

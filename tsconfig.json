@@ -13,16 +13,6 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "sourceMap": true,
-    "baseUrl": "./src",
-    "paths": {
-      "app/*": ["app/*"],
-      "infra/*": ["infra/*"],
-      "middlewares/*": ["middlewares/*"],
-      "models/*": ["models/*"],
-      "shared/*": ["shared/*"],
-      "types/*": ["types/*"],
-      "utils/*": ["utils/*"]
-    },
     "outDir": "./dist",
     "skipLibCheck": true
   },
