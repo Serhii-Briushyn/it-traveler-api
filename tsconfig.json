@@ -13,7 +13,8 @@
     "experimentalDecorators": true,
     "isolatedModules": true,
     "sourceMap": true,
-    "outDir": "./src/dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "skipLibCheck": true
   },
   "include": ["src"]
