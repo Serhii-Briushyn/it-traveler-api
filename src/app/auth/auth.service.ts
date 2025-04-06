@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { IAuthPayload, IAuthResponse } from "./auth.types1";
+import { IAuthPayload, IAuthResponse } from "./auth.types";
 import { env } from "../../utils/env";
-import { UsersCollection } from "../../models/user.model1";
+import { UsersCollection } from "../../models/user.model";
 import { ApiError } from "../../shared/api-error";
-import { SessionsCollection } from "../../models/session.model1";
+import { SessionsCollection } from "../../models/session.model";
 
 export class AuthService {
   private generateAccessToken(userId: string): string {

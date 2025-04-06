@@ -1,4 +1,4 @@
-import { App } from "./infra/app1";
+import { App } from "./infra/app";
 
 const bootstrap = async () => {
   try {

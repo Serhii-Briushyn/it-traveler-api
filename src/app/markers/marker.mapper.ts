@@ -1,5 +1,5 @@
-import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto1";
-import { IMarkerCreate, IMarkerUpdate } from "./marker.types1";
+import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto";
+import { IMarkerCreate, IMarkerUpdate } from "./marker.types";
 
 export function mapCreateMarkerDto(dto: CreateMarkerDto): IMarkerCreate {
   return {

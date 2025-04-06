@@ -4,8 +4,8 @@ import { useExpressServer } from "routing-controllers";
 import { IService } from "../types/service.types";
 import { controllers } from "../app/domain/controllers";
 import { middlewares } from "../middlewares/index";
-import { authorizationChecker } from "../infra/security/authorization-checker";
-import { currentUserChecker } from "../infra/security/current-user-checker";
+import { authorizationChecker } from "./security/authorization-checker";
+import { currentUserChecker } from "./security/current-user-checker";
 import { env } from "../utils/env";
 
 export class Tcp implements IService {
