@@ -1,0 +1,30 @@
+type: object
+required:
+  - id
+  - name
+  - email
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique user identifier (MongoDB ObjectId as string)
+    example: "66342cc9c9a2e7fc0d4ccefa"
+  name:
+    type: string
+    description: Full name of the user
+    example: "John Doe"
+  email:
+    type: string
+    format: email
+    description: User's email address
+    example: "john.doe@example.com"
+  createdAt:
+    type: string
+    format: date-time
+    description: Timestamp when the user was created
+    example: "2024-04-01T12:00:00.000Z"
+  updatedAt:
+    type: string
+    format: date-time
+    description: Timestamp when the user was last updated
+    example: "2024-04-02T08:45:30.000Z"

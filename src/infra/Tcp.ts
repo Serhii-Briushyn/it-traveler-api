@@ -4,19 +4,18 @@ import { useExpressServer } from "routing-controllers";
 import { IService } from "types/service.types";
 import { controllers } from "app/domain/controllers";
 import { middlewares } from "middlewares/index";
-import { jsonSyntaxErrorHandler } from "middlewares/json-syntax-error-handler";
 import { authorizationChecker } from "infra/security/authorization-checker";
 import { currentUserChecker } from "infra/security/current-user-checker";
 import { env } from "utils/env";
 
 export class Tcp implements IService {
   private static instance: Tcp;
-  public server!: Express;
-  private readonly routePrefix: string = "/api";
+
+  private routePrefix: string = "/api";
+  public server = express();
 
   constructor() {
     if (!Tcp.instance) {
-      this.server = express();
       Tcp.instance = this;
     }
 
@@ -25,18 +24,14 @@ export class Tcp implements IService {
 
   async init(): Promise<boolean> {
     this.server.use(express.json());
-    this.server.use(jsonSyntaxErrorHandler);
 
     useExpressServer(this.server, {
       routePrefix: this.routePrefix,
       controllers,
       middlewares,
       cors: true,
-      defaultErrorHandler: true,
-      validation: {
-        whitelist: true,
-        forbidNonWhitelisted: true,
-      },
+      defaultErrorHandler: false,
+      validation: false,
       classTransformer: true,
       authorizationChecker,
       currentUserChecker,

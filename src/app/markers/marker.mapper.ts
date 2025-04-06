@@ -1,10 +1,7 @@
 import { CreateMarkerDto, UpdateMarkerDto } from "./marker.dto";
 import { IMarkerCreate, IMarkerUpdate } from "./marker.types";
 
-export function mapCreateMarkerDto(
-  dto: CreateMarkerDto,
-  // imageUrl?: string,
-): IMarkerCreate {
+export function mapCreateMarkerDto(dto: CreateMarkerDto): IMarkerCreate {
   return {
     title: dto.title,
     description: dto.description,
@@ -16,10 +13,7 @@ export function mapCreateMarkerDto(
   };
 }
 
-export function mapUpdateMarkerDto(
-  dto: UpdateMarkerDto,
-  // imageUrl?: string,
-): IMarkerUpdate {
+export function mapUpdateMarkerDto(dto: UpdateMarkerDto): IMarkerUpdate {
   const update: IMarkerUpdate = {};
 
   if (dto.title) update.title = dto.title;

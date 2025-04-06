@@ -1,0 +1,75 @@
+description: Unauthorized access due to invalid or expired token
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - success
+        - status
+        - message
+        - code
+      properties:
+        success:
+          type: boolean
+          example: false
+          description: Indicates failure
+        status:
+          type: integer
+          example: 401
+          description: HTTP error status
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Application-specific error code
+    examples:
+      invalidCredentials:
+        summary: Email or password is incorrect
+        value:
+          success: false
+          status: 401
+          message: Email or password is incorrect
+          code: INVALID_CREDENTIALS
+      tokenRequired:
+        summary: Missing refresh token in request
+        value:
+          success: false
+          status: 401
+          message: Refresh token is required
+          code: TOKEN_REQUIRED
+      tokenExpired:
+        summary: Token has expired
+        value:
+          success: false
+          status: 401
+          message: Token expired
+          code: TOKEN_EXPIRED
+      invalidToken:
+        summary: Token is invalid or malformed
+        value:
+          success: false
+          status: 401
+          message: Invalid token
+          code: INVALID_TOKEN
+      sessionNotFound:
+        summary: Session not found for provided token
+        value:
+          success: false
+          status: 401
+          message: Session not found
+          code: SESSION_NOT_FOUND
+      sessionExpired:
+        summary: Session expired according to stored session data
+        value:
+          success: false
+          status: 401
+          message: Session expired
+          code: SESSION_EXPIRED
+      invalidHeader:
+        summary: Missing or malformed Authorization header
+        value:
+          success: false
+          status: 401
+          message: Authorization token is missing or invalid
+          code: INVALID_AUTH_HEADER

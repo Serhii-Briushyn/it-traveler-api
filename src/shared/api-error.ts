@@ -12,7 +12,7 @@ export class ApiError extends HttpError {
   constructor(
     public readonly status: number,
     public readonly message: string,
-    public readonly code: string = "INTERNAL_ERROR",
+    public readonly code: string,
     public readonly errors?: ValidationError[],
   ) {
     super(status);

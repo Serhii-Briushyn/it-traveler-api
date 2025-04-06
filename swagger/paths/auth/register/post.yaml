@@ -1,0 +1,72 @@
+tags:
+  - Auth
+summary: Register a new user
+operationId: registerUser
+description: Creates a new user account using name, email and password
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: Full name of the user
+            example: John Doe
+          email:
+            type: string
+            format: email
+            description: User's email address
+            example: johndoe@example.com
+          password:
+            type: string
+            format: password
+            description: User's password
+            example: SecurePass123!
+responses:
+  "201":
+    description: User successfully registered
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - success
+            - status
+            - message
+            - data
+          properties:
+            success:
+              type: boolean
+              description: Indicates if the operation was successful
+              example: true
+            status:
+              type: integer
+              description: HTTP status code of the response
+              example: 201
+            message:
+              type: string
+              description: Short response message
+              example: Registration successful
+            data:
+              type: object
+              description: JWT tokens for authentication
+              properties:
+                accessToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIs...
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIs...
+  "400":
+    $ref: ../../../components/responses/400.yaml
+  "409":
+    $ref: ../../../components/responses/409.yaml
+  "500":
+    $ref: ../../../components/responses/500.yaml

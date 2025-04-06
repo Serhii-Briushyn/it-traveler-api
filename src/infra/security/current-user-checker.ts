@@ -1,26 +1,31 @@
-import jwt from "jsonwebtoken";
-import { UsersCollection } from "models/user.model";
 import { Action } from "routing-controllers";
-import { env } from "utils/env";
+import { ApiError } from "shared/api-error";
+import { verifyToken } from "./verify-token";
 
 export const currentUserChecker = async (action: Action) => {
   const authHeader = action.request.headers["authorization"];
-  if (!authHeader?.startsWith("Bearer ")) return null;
+  if (!authHeader?.startsWith("Bearer ")) {
+    throw new ApiError(
+      401,
+      "Authorization header is missing or invalid",
+      "INVALID_AUTH_HEADER",
+    );
+  }
 
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, env("JWT_SECRET")) as { id: string };
-    const userDoc = await UsersCollection.findById(decoded.id).lean();
-    if (!userDoc) return null;
-
-    const user = {
-      ...userDoc,
-      id: userDoc._id.toString(),
-    };
+    const user = await verifyToken(token);
 
     return user;
-  } catch {
-    return null;
+  } catch (error: any) {
+    if (error.name === "TokenExpiredError") {
+      throw new ApiError(401, "Token expired", "TOKEN_EXPIRED");
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      throw new ApiError(401, "Invalid token", "INVALID_TOKEN");
+    }
+    throw error;
   }
 };

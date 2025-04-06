@@ -99,6 +99,7 @@ npm run dev
 | `POST` | `/api/auth/login`    | Login user and create session |
 | `POST` | `/api/auth/refresh`  | Refresh access token          |
 | `POST` | `/api/auth/logout`   | Logout and delete session     |
+| `GET`  | `/api/auth/me`       | Get current user profile      |
 
 ### 📍 Markers
 
@@ -109,7 +110,7 @@ npm run dev
 | `PUT`    | `/api/markers/:id` | Update existing marker   |
 | `DELETE` | `/api/markers/:id` | Delete marker by ID      |
 
-> Full OpenAPI/Swagger spec coming soon...
+> 🧾 [View Full Swagger Spec](https://your-domain.com/docs/swagger)
 
 ---
 

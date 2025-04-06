@@ -52,11 +52,6 @@ export class AuthService {
     const session = await SessionsCollection.create(this.createSession(userId));
 
     return {
-      user: {
-        id: userId,
-        email: createdUser.email,
-        name: createdUser.name ?? "User",
-      },
       accessToken: session.accessToken,
       refreshToken: session.refreshToken,
     };
@@ -66,7 +61,7 @@ export class AuthService {
 
   async login(payload: IAuthPayload): Promise<IAuthResponse> {
     const user = await UsersCollection.findOne({ email: payload.email });
-    if (!user) throw new ApiError(404, "User not found", "NOT_FOUND");
+    if (!user) throw new ApiError(404, "User not found", "USER_NOT_FOUND");
 
     const isPasswordValid = await bcrypt.compare(
       payload.password,
@@ -85,11 +80,6 @@ export class AuthService {
     const session = await SessionsCollection.create(this.createSession(userId));
 
     return {
-      user: {
-        id: userId,
-        email: user.email,
-        name: user.name,
-      },
       accessToken: session.accessToken,
       refreshToken: session.refreshToken,
     };
@@ -105,25 +95,36 @@ export class AuthService {
 
   async refresh(refreshToken: string): Promise<IAuthResponse> {
     if (!refreshToken) {
-      throw new ApiError(
-        401,
-        "Refresh token is required",
-        "REFRESH_TOKEN_REQUIRED",
-      );
+      throw new ApiError(401, "Refresh token is required", "TOKEN_REQUIRED");
     }
 
     let decoded: { id: string };
+
     try {
       decoded = jwt.verify(refreshToken, env("JWT_REFRESH_SECRET")) as {
         id: string;
       };
-    } catch {
-      throw new ApiError(401, "Invalid refresh token", "INVALID_REFRESH_TOKEN");
+    } catch (error: any) {
+      if (error.name === "TokenExpiredError") {
+        throw new ApiError(401, "Token expired", "TOKEN_EXPIRED");
+      }
+
+      if (error.name === "JsonWebTokenError") {
+        throw new ApiError(401, "Invalid token", "INVALID_TOKEN");
+      }
+
+      throw error;
     }
 
     const session = await SessionsCollection.findOne({ refreshToken });
     if (!session) {
       throw new ApiError(401, "Session not found", "SESSION_NOT_FOUND");
+    }
+
+    const isSessionTokenExpired =
+      new Date() > new Date(session.refreshTokenValidUntil);
+    if (isSessionTokenExpired) {
+      throw new ApiError(401, "Session expired", "SESSION_EXPIRED");
     }
 
     const user = await UsersCollection.findById(decoded.id);
@@ -138,11 +139,6 @@ export class AuthService {
     );
 
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-      },
       accessToken: newSession.accessToken,
       refreshToken: newSession.refreshToken,
     };

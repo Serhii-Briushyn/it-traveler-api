@@ -1,0 +1,74 @@
+tags:
+  - Markers
+summary: Update an existing marker
+operationId: updateMarker
+description: Fully updates a marker (including image) by ID. Replaces all fields.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    description: Marker ID
+    required: true
+    schema:
+      type: string
+      example: 674c7ea11a75750f5f9b86d4
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            description: Updated title of the marker
+            example: Updated Location
+          description:
+            type: string
+            description: Updated description of the marker
+            example: New description
+          imageUrl:
+            type: string
+            format: binary
+            description: New image file
+          coordinates:
+            type: string
+            description: Updated geographic coordinates
+            example: 30.5241, 50.4501
+responses:
+  "200":
+    description: Marker updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - success
+            - status
+            - message
+            - data
+          properties:
+            success:
+              type: boolean
+              description: Indicates if the operation was successful
+              example: true
+            status:
+              type: integer
+              description: HTTP status code of the response
+              example: 200
+            message:
+              type: string
+              description: Short response message
+              example: Marker updated successfully
+            data:
+              $ref: ../../../components/schemas/marker.yaml
+              description: Updated marker object
+  "400":
+    $ref: ../../../components/responses/400.yaml
+  "401":
+    $ref: ../../../components/responses/401.yaml
+  "404":
+    $ref: ../../../components/responses/404.yaml
+  "500":
+    $ref: ../../../components/responses/500.yaml

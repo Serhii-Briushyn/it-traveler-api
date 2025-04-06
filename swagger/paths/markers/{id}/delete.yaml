@@ -1,0 +1,26 @@
+tags:
+  - Markers
+summary: Delete marker by ID
+operationId: deleteMarker
+description: Deletes a marker that belongs to the authenticated user
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    description: Marker ID
+    required: true
+    schema:
+      type: string
+      example: 674c7ea11a75750f5f9b86d4
+responses:
+  "204":
+    description: Successfully deleted market, no content returned
+  "400":
+    $ref: ../../../components/responses/400.yaml
+  "401":
+    $ref: ../../../components/responses/401.yaml
+  "404":
+    $ref: ../../../components/responses/404.yaml
+  "500":
+    $ref: ../../../components/responses/500.yaml

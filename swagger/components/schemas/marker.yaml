@@ -1,0 +1,62 @@
+type: object
+required:
+  - id
+  - title
+  - geometry
+  - userId
+  - createdAt
+  - updatedAt
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique marker identifier (MongoDB ObjectId as string)
+    example: "66342cc9c9a2e7fc0d4ccefa"
+  title:
+    type: string
+    description: Title of the marker
+    example: "Dnipro Embankment"
+  description:
+    type: string
+    description: Optional marker description
+    example: "Beautiful view of the river"
+  imageUrl:
+    type: string
+    format: uri
+    description: Optional URL to an image
+    example: "https://example.com/uploads/marker1.jpg"
+  geometry:
+    type: object
+    required:
+      - type
+      - coordinates
+    properties:
+      type:
+        type: string
+        enum: [Point]
+        example: "Point"
+        description: GeoJSON geometry type
+      coordinates:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+          type: number
+          format: double
+        description: Coordinates as [longitude, latitude]
+        example: [35.0462, 48.4647]
+  userId:
+    type: string
+    format: uuid
+    description: ID of the user who created the marker
+    example: "66342cc9c9a2e7fc0d4ccefb"
+  createdAt:
+    type: string
+    format: date-time
+    description: Timestamp of creation
+    example: "2024-04-01T12:00:00.000Z"
+  updatedAt:
+    type: string
+    format: date-time
+    description: Timestamp of last update
+    example: "2024-04-02T08:45:30.000Z"

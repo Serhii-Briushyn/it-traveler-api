@@ -4,13 +4,11 @@ import {
   Authorized,
   CurrentUser,
   Post,
-  Body,
   Param,
   Put,
   Delete,
   OnUndefined,
   UseBefore,
-  UploadedFile,
   Req,
 } from "routing-controllers";
 import { MarkerService } from "./marker.service";
@@ -30,6 +28,8 @@ import { mapCreateMarkerDto, mapUpdateMarkerDto } from "./marker.mapper";
 export class MarkerController {
   private service = new MarkerService();
 
+  // ─────────────────── Get All ───────────────────
+
   @Authorized()
   @Get()
   async getAllByUser(
@@ -44,6 +44,8 @@ export class MarkerController {
     );
   }
 
+  // ─────────────────── Create ───────────────────
+
   @Post()
   @Authorized()
   @UseBefore(imageUploadMiddleware)
@@ -52,26 +54,31 @@ export class MarkerController {
     @Req() req: Request,
   ): Promise<ApiResponse<IMarker>> {
     const file = req.file;
-    const dto = plainToInstance(CreateMarkerDto, req.body, {
-      excludeExtraneousValues: true,
-    });
+    const dto = plainToInstance(CreateMarkerDto, req.body);
 
     if (file) {
       dto.imageUrl = await saveFileToCloudinary(file);
     }
 
-    const errors = await validate(dto, {
+    const validateError = await validate(dto, {
       whitelist: true,
       forbidNonWhitelisted: true,
     });
 
-    if (errors.length > 0)
-      throw new ApiError(400, "Validation failed", "VALIDATION_ERROR", errors);
+    if (validateError.length > 0)
+      throw new ApiError(
+        400,
+        "Invalid request body",
+        "VALIDATION_ERROR",
+        validateError,
+      );
 
     const markerData = mapCreateMarkerDto(dto);
     const marker = await this.service.create(markerData, user.id);
     return new ApiResponse(true, 201, "Marker created successfully", marker);
   }
+
+  // ─────────────────── Update ───────────────────
 
   @Put("/:id")
   @Authorized()
@@ -82,26 +89,31 @@ export class MarkerController {
     @Req() req: Request,
   ): Promise<ApiResponse<IMarker>> {
     const file = req.file;
-    const dto = plainToInstance(UpdateMarkerDto, req.body, {
-      excludeExtraneousValues: true,
-    });
+    const dto = plainToInstance(UpdateMarkerDto, req.body);
 
     if (file) {
       dto.imageUrl = await saveFileToCloudinary(file);
     }
 
-    const errors = await validate(dto, {
+    const validateError = await validate(dto, {
       whitelist: true,
       forbidNonWhitelisted: true,
     });
 
-    if (errors.length > 0)
-      throw new ApiError(400, "Validation failed", "VALIDATION_ERROR", errors);
+    if (validateError.length > 0)
+      throw new ApiError(
+        400,
+        "Invalid request body",
+        "VALIDATION_ERROR",
+        validateError,
+      );
 
     const updatedData = mapUpdateMarkerDto(dto);
     const updated = await this.service.update(id, user.id, updatedData);
     return new ApiResponse(true, 200, "Marker updated successfully", updated);
   }
+
+  // ─────────────────── Delete ───────────────────
 
   @Delete("/:id")
   @Authorized()

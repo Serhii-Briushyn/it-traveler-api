@@ -1,0 +1,27 @@
+description: Conflict due to a resource already existing
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - success
+        - status
+        - message
+        - code
+      properties:
+        success:
+          type: boolean
+          example: false
+          description: Indicates failure
+        status:
+          type: integer
+          description: HTTP error status
+          example: 409
+        message:
+          type: string
+          description: Human-readable error message
+          example: User with this email already exists
+        code:
+          type: string
+          description: Application-specific error code
+          example: USER_EXISTS

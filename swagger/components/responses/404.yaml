@@ -1,0 +1,40 @@
+description: Resource not found
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - success
+        - status
+        - message
+        - code
+      properties:
+        success:
+          type: boolean
+          example: false
+          description: Indicates failure
+        status:
+          type: integer
+          description: HTTP error status
+          example: 404
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Application-specific error code
+    examples:
+      userNotFound:
+        summary: User with the specified ID or email does not exist
+        value:
+          success: false
+          status: 404
+          message: User not found
+          code: USER_NOT_FOUND
+      markerNotFound:
+        summary: Marker with the specified ID does not exist
+        value:
+          success: false
+          status: 404
+          message: Marker not found
+          code: MARKER_NOT_FOUND

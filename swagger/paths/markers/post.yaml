@@ -1,0 +1,67 @@
+tags:
+  - Markers
+summary: Create a new marker
+operationId: createMarkerWithImage
+description: Creates a marker and uploads image to Cloudinary
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - title
+          - coordinates
+        properties:
+          title:
+            type: string
+            description: Title of the marker
+            example: Kyiv Independence Square
+          description:
+            type: string
+            description: Describing the marker
+            example: The heart of Ukraine's capital
+          imageUrl:
+            type: string
+            format: binary
+            description: Image file
+          coordinates:
+            type: string
+            description: Geographic coordinates
+            example: 30.5241, 50.4501
+responses:
+  "201":
+    description: Marker created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - success
+            - status
+            - message
+            - data
+          properties:
+            success:
+              type: boolean
+              description: Indicates if the operation was successful
+              example: true
+            status:
+              type: integer
+              description: HTTP status code of the response
+              example: 201
+            message:
+              type: string
+              description: Short response message
+              example: Marker created successfully
+            data:
+              $ref: ../../components/schemas/marker.yaml
+              description: Created marker object
+  "400":
+    $ref: ../../components/responses/400.yaml
+  "401":
+    $ref: ../../components/responses/401.yaml
+  "500":
+    $ref: ../../components/responses/500.yaml

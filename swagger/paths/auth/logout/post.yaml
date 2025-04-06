@@ -1,0 +1,14 @@
+tags:
+  - Auth
+summary: Logout the current user
+operationId: logoutUser
+description: Deletes the current user's session and invalidates the tokens
+security:
+  - bearerAuth: []
+responses:
+  "204":
+    description: Logout successful, no content returned
+  "401":
+    $ref: ../../../components/responses/401.yaml
+  "500":
+    $ref: ../../../components/responses/500.yaml

@@ -1,0 +1,72 @@
+description: Bad request due to invalid request body or incorrect ID format
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - success
+        - status
+        - message
+        - code
+      properties:
+        success:
+          type: boolean
+          example: false
+          description: Indicates failure
+        status:
+          type: integer
+          example: 400
+          description: HTTP error status
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Application-specific error code
+        data:
+          type: string
+          description: Extra field-specific info (e.g. file field)
+        errors:
+          type: array
+          description: Validation errors list
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+              constraints:
+                type: object
+    examples:
+      validationError:
+        summary: Validation error
+        value:
+          success: false
+          status: 400
+          message: Invalid request body
+          code: VALIDATION_ERROR
+          errors:
+            - property: password
+              constraints:
+                isLength: Password must be at least 8 characters
+      invalidMarkerId:
+        summary: Invalid ID format
+        value:
+          success: false
+          status: 400
+          message: Invalid marker ID format
+          code: INVALID_ID
+      invalidJson:
+        summary: Invalid JSON body
+        value:
+          success: false
+          status: 400
+          message: Invalid JSON payload
+          code: INVALID_JSON
+      invalidFileField:
+        summary: Unexpected file field
+        value:
+          success: false
+          status: 400
+          message: Invalid file field
+          code: LIMIT_UNEXPECTED_FILE
+          data: Field imageExtra should not exist

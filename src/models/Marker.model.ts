@@ -52,7 +52,6 @@ const markerSchema = new Schema<MarkerDocument>(
   {
     timestamps: true,
     versionKey: false,
-    strict: true,
   },
 );
 

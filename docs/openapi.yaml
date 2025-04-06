@@ -1,21 +1,49 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: IT Traveler API
-  description: Comprehensive API documentation for managing resources, including user authentication, contact management, and other related operations.
+  title: IT-Traveler API
+  description: |
+    IT-Traveler is a RESTful API for managing user authentication and geo-markers.
+    Users can register, log in, create, update, delete and fetch their travel markers.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 tags:
   - name: Auth
-    description: Endpoints for user authentication, registration, and token management.
-
+    description: Endpoints for user registration, login, logout, refresh, and profile
+  - name: Markers
+    description: Endpoints for managing travel markers (create, read, update, delete)
 servers:
-
   - url: http://127.0.0.1:3000
-
+paths:
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/me:
+    get:
+      $ref: ../swagger/paths/auth/me/get.yaml
+  /markers:
+    get:
+      $ref: ../swagger/paths/markers/get.yaml
+    post:
+      $ref: ../swagger/paths/markers/post.yaml
+  /markers/{id}:
+    put:
+      $ref: ../swagger/paths/markers/{id}/put.yaml
+    delete:
+      $ref: ../swagger/paths/markers/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+      bearerFormat: JWT
